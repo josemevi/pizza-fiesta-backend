@@ -56,6 +56,8 @@
 
             }else if($user['password'] == $password){
 
+                unset($user['password']);
+
                 sendResponse(200, "Inicio de Sesion exitoso", $user, "userData");
 
             }else {

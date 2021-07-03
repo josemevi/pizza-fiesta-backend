@@ -13,23 +13,23 @@
                 $id = mysqli_real_escape_string($conn, $_GET['id']);
 
                 //sql
-                $sql = "SELECT * FROM pizzas WHERE id=$id";
+                $sql = "SELECT * FROM orders WHERE id=$id ORDER BY created_at";
         
                 //get the result
                 $result = mysqli_query($conn, $sql);
                 //fetch the array
-                $pizza = mysqli_fetch_assoc($result);
+                $orders = mysqli_fetch_assoc($result);
                 //remove the result from memory
                 mysqli_free_result($result);
                 //close the connection
                 mysqli_close($conn);
 
-                sendResponse(200, "Pizzas", $pizza, "pizzaData");
+                sendResponse(200, "orders", $orders, "orderData");
 
 
             }else {
 
-                sendResponse(404, "Pizza not found", null, "data");
+                sendResponse(404, "Order not found", null, "data");
                 
             }
         
@@ -37,19 +37,19 @@
 
         }else {
 
-            $sql = "SELECT * FROM pizzas ORDER BY created_at";
+            $sql = "SELECT * FROM orders ORDER BY created_at";
 
             //get the result
             $result = mysqli_query($conn, $sql);
             //fetch the array
-            $pizza = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            $orders = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
             //remove the result from memory
             mysqli_free_result($result);
             //close the connection
             mysqli_close($conn);
 
-            sendResponse(200, "Pizzas", $pizza, "pizzaData");
+            sendResponse(200, "orders", $orders, "orderData");
             
         }
 
