@@ -1,8 +1,8 @@
 <?php
 
-    require('../config/db_connect.php');
-    require('../config/env.php');
-    require('../config/commonFunctions.php');
+    require('../../../config/db_connect.php');
+    require('../../../config/env.php');
+    require('../../../config/commonFunctions.php');
     
 
 
@@ -12,7 +12,7 @@
         $id_to_delete = mysqli_real_escape_string($conn, $_DELETE['id']);
         
         $sql = "DELETE FROM pizzas WHERE id=$id_to_delete";
-        echo $sql;
+
         if(mysqli_query($conn, $sql)){
             mysqli_close($conn);
             sendResponse(200, "Pizza eliminada con exito",null,"data");

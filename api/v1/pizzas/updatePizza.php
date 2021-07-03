@@ -1,8 +1,8 @@
 <?php 
 
-    require('../config/db_connect.php');
-    require('../config/env.php');
-    require('../config/commonFunctions.php');
+    require('../../../config/db_connect.php');
+    require('../../../config/env.php');
+    require('../../../config/commonFunctions.php');
 
     //Recibir el json 
     $_PUT = json_decode(file_get_contents('php://input'), true);
