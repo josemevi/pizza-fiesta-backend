@@ -7,7 +7,7 @@
     //Recibir el json 
     $_POST = json_decode(file_get_contents('php://input'), true);
   
-    $username = $email = $password = "";
+    $username = $email = $password = $phone = $direction = "";
     $errors = array('username' => '', 'email' => '', 'password' => '');
 
     //verificando si existen datos
@@ -37,6 +37,18 @@
 			$password = $_POST['password'];
         }
 
+        if(empty($_POST['phone'])){
+			$phone = null;
+		} else{
+			$phone = $_POST['phone'];
+        }
+
+        if(empty($_POST['direction'])){
+			$direction = "";
+		} else{
+			$direction = $_POST['direction'];
+        }
+
         //revisando si se encontro algun error
         if(array_filter($errors)){
 
@@ -49,12 +61,13 @@
             $username = strtolower(mysqli_real_escape_string($conn, $_POST['username']));
             $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-            $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
+            $sql = "INSERT INTO users (username, email, password, phone, direction)
+             VALUES ('$username', '$email', '$password', '$phone', '$direction')";
         
             //ejecutando el sql
             if(mysqli_query($conn, $sql)){
                 mysqli_close($conn);
-                sendResponse(200, "Usuario creado con exito",null,"data");
+                sendResponse(201, "Usuario creado con exito",null,"data");
 
             }else {
 
