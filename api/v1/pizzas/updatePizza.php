@@ -47,9 +47,15 @@
         }
 
         if(empty($_PUT['description'])){
-			$description = "";
+			$description = null;
 		} else{
-			$description = $_PUT['description'];
+			$description = strtolower(mysqli_real_escape_string($conn, $_PUT['description']));
+		}
+
+        if(empty($_PUT['photo'])){
+			$photo = null;
+		} else{
+			$photo = mysqli_real_escape_string($conn, $_PUT['photo']);
 		}
 
         //revisando si se encontro algun error
@@ -59,16 +65,15 @@
 
         }else {
             //Preprando el sql
-            $pizza_id = strtolower(mysqli_real_escape_string($conn, $_PUT['pizza_id']));
+            $pizza_id = mysqli_real_escape_string($conn, $_PUT['pizza_id']);
             $name = strtolower(mysqli_real_escape_string($conn, $_PUT['name']));
             $ingredients = strtolower(mysqli_real_escape_string($conn, $ingredients));
-            $value = strtolower(mysqli_real_escape_string($conn, $_PUT['value']));
-            $updated_by = strtolower(mysqli_real_escape_string($conn, $_PUT['updated_by']));
-            $description =  strtolower(mysqli_real_escape_string($conn, $_PUT['description']));;
+            $value = mysqli_real_escape_string($conn, $_PUT['value']);
+            $updated_by = mysqli_real_escape_string($conn, $_PUT['updated_by']);
 
 
             $sql = "UPDATE `pizzas` SET `name`='$name',`description`='$description',
-            `ingredients`='$ingredients',`value`='$value',`updated_by`='$updated_by' WHERE id = $pizza_id";
+            `ingredients`='$ingredients',`value`='$value',`updated_by`='$updated_by', `photo`='$photo' WHERE id = $pizza_id";
 
             //ejecutando el sql
             if(mysqli_query($conn, $sql)){

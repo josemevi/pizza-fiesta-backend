@@ -7,7 +7,7 @@
     //Recibir el json 
     $_POST = json_decode(file_get_contents('php://input'), true);
   
-    $name = $ingredients = $value = $created_by = $description =  "";
+    $name = $ingredients = $value = $created_by = $description = $photo =  "";
     $errors = array('name' => '', 'ingredients' => '', 'value' => '', 'created_by' => '', 'description' => '');
 
     //verificando si existen datos
@@ -42,9 +42,15 @@
         }
 
         if(empty($_POST['description'])){
-			$description = "";
+			$description = null;
 		} else{
-			$description = $_POST['description'];
+			$description = strtolower(mysqli_real_escape_string($conn, $_POST['description']));
+		}
+
+        if(empty($_POST['photo'])){
+			$photo = null;
+		} else{
+			$photo = mysqli_real_escape_string($conn, $_POST['photo']);
 		}
 
         //revisando si se encontro algun error
@@ -56,13 +62,12 @@
             //Preprando el sql
             $name = strtolower(mysqli_real_escape_string($conn, $_POST['name']));
             $ingredients = strtolower(mysqli_real_escape_string($conn, $ingredients));
-            $value = strtolower(mysqli_real_escape_string($conn, $_POST['value']));
-            $created_by = strtolower(mysqli_real_escape_string($conn, $_POST['created_by']));
-            $description =  strtolower(mysqli_real_escape_string($conn, $_POST['description']));;
+            $value = mysqli_real_escape_string($conn, $_POST['value']);
+            $created_by = mysqli_real_escape_string($conn, $_POST['created_by']);
 
 
-            $sql = "INSERT INTO `pizzas`(`name`, `description`, `ingredients`, `value`, `created_by`, `updated_by`) 
-            VALUES ('$name','$description','$ingredients','$value','$created_by','$created_by')";
+            $sql = "INSERT INTO `pizzas`(`name`, `description`, `ingredients`, `value`, `created_by`, `updated_by`, `photo`) 
+            VALUES ('$name','$description','$ingredients','$value','$created_by','$created_by', '$photo')";
         
             //ejecutando el sql
             if(mysqli_query($conn, $sql)){
