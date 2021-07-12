@@ -16,7 +16,7 @@
         //Verificando errores en formularios
 
         if(empty($_POST['email'])){
-            $errors['email'] = "Es requerido un email";
+            $email = strtolower(mysqli_real_escape_string($conn, $_POST['email']));
         } else {
             $email = $_POST['email'];
             if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
@@ -57,7 +57,6 @@
         }else {
 
             //Preprando el sql
-            $email = strtolower(mysqli_real_escape_string($conn, $_POST['email']));
             $username = strtolower(mysqli_real_escape_string($conn, $_POST['username']));
             $password = mysqli_real_escape_string($conn, $_POST['password']);
 

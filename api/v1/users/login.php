@@ -39,7 +39,7 @@
             $username = strtolower(mysqli_real_escape_string($conn, $_POST['username']));
             $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-            $sql = "SELECT id, username, password FROM users WHERE username = '$username' OR email = '$username'";
+            $sql = "SELECT id, username, password, role FROM users WHERE username = '$username' OR email = '$username'";
             //get the result
             $result = mysqli_query($conn, $sql);
 
