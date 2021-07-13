@@ -11,7 +11,7 @@
     if(isset($_DELETE['id'])){
         $id_to_delete = mysqli_real_escape_string($conn, $_DELETE['id']);
         
-        $sql = "DELETE FROM pizzas WHERE id=$id_to_delete";
+        $sql = "UPDATE pizzas SET active = 0 WHERE id=$id_to_delete";
 
         if(mysqli_query($conn, $sql)){
             mysqli_close($conn);

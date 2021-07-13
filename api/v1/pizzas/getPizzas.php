@@ -13,7 +13,17 @@
                 $id = mysqli_real_escape_string($conn, $_GET['id']);
 
                 //sql
-                $sql = "SELECT * FROM pizzas WHERE id=$id ORDER BY created_at";
+                $sql = "SELECT `pizzas`.`id`,
+                `pizzas`.`name`,
+                `pizzas`.`description`,
+                `pizzas`.`ingredients`,
+                `pizzas`.`value`,
+                `pizzas`.`photo`,
+                `pizzas`.`created_by`,
+                `pizzas`.`created_at`,
+                `pizzas`.`updated_at`,
+                `users`.`username` as `created_by_username`
+                FROM `pizzas` JOIN `users` WHERE `pizzas`.`created_by`=`users`.`id` AND `pizzas`.`id` = $id AND `pizzas`.`active` = 1  ORDER BY `created_at`";
         
                 //get the result
                 $result = mysqli_query($conn, $sql);
@@ -37,7 +47,17 @@
 
         }else {
 
-            $sql = "SELECT * FROM pizzas ORDER BY created_at";
+            $sql = "SELECT `pizzas`.`id`,
+            `pizzas`.`name`,
+            `pizzas`.`description`,
+            `pizzas`.`ingredients`,
+            `pizzas`.`value`,
+            `pizzas`.`photo`,
+            `pizzas`.`created_by`,
+            `pizzas`.`created_at`,
+            `pizzas`.`updated_at`,
+            `users`.`username` as `created_by_username`
+            FROM `pizzas` JOIN `users` WHERE `pizzas`.`created_by`=`users`.`id` AND `pizzas`.`active` = 1 ORDER BY `created_at`";
 
             //get the result
             $result = mysqli_query($conn, $sql);
