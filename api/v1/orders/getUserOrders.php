@@ -13,7 +13,7 @@
                 $id = mysqli_real_escape_string($conn, $_GET['id']);
 
                 //sql
-                $sql = "SELECT * FROM orders WHERE user_id=$id ORDER BY created_at";
+                $sql = "SELECT * FROM orders WHERE user_id=$id ORDER BY created_at DESC";
         
                 //get the result
                 $result = mysqli_query($conn, $sql);

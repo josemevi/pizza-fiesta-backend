@@ -23,7 +23,7 @@
                 `pizzas`.`created_at`,
                 `pizzas`.`updated_at`,
                 `users`.`username` as `created_by_username`
-                FROM `pizzas` JOIN `users` WHERE `pizzas`.`created_by`=`users`.`id` AND `pizzas`.`id` = $id AND `pizzas`.`active` = 1  ORDER BY `created_at`";
+                FROM `pizzas` JOIN `users` WHERE `pizzas`.`created_by`=`users`.`id` AND `pizzas`.`id` = $id AND `pizzas`.`active` = 1  ORDER BY `created_at` DESC";
         
                 //get the result
                 $result = mysqli_query($conn, $sql);
@@ -57,7 +57,7 @@
             `pizzas`.`created_at`,
             `pizzas`.`updated_at`,
             `users`.`username` as `created_by_username`
-            FROM `pizzas` JOIN `users` WHERE `pizzas`.`created_by`=`users`.`id` AND `pizzas`.`active` = 1 ORDER BY `created_at`";
+            FROM `pizzas` JOIN `users` WHERE `pizzas`.`created_by`=`users`.`id` AND `pizzas`.`active` = 1 ORDER BY `created_at` DESC";
 
             //get the result
             $result = mysqli_query($conn, $sql);

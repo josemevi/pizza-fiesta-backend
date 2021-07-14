@@ -12,7 +12,13 @@
 
             $id = mysqli_real_escape_string($conn, $_GET['id']);
 
-            $sql = "SELECT * FROM pizzas WHERE created_by=$id ORDER BY created_at DESC";
+            $sql = "SELECT `users_cart`.`id`, 
+            `users_cart`.`quantity`,
+            `pizzas`.`name`,
+            `pizzas`.`value`,
+            `pizzas`.`photo`,
+            `users_cart`.`created_at` FROM `users_cart` JOIN `pizzas`
+            WHERE `users_cart`.`pizza_id` = `pizzas`.`id` AND `users_cart`.`user_id` = $id ORDER BY `users_cart`.`created_at` DESC";
 
             //get the result
             $result = mysqli_query($conn, $sql);
@@ -24,11 +30,11 @@
             //close the connection
             mysqli_close($conn);
 
-            sendResponse(200, "Pizzas", $pizza, "pizzaData");
+            sendResponse(200, "Cart", $pizza, "cartData");
 
             }else {
 
-                sendResponse(404, "User pizzas not found", null, "data");
+                sendResponse(404, "User cart not found", null, "data");
                 
             }
         }    

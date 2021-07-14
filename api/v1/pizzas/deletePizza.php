@@ -8,10 +8,12 @@
 
     $_DELETE = $_GET;
     
-    if(isset($_DELETE['id'])){
-        $id_to_delete = mysqli_real_escape_string($conn, $_DELETE['id']);
+    if(isset($_DELETE['id']) && isset($_DELETE['user_id'])){
         
-        $sql = "UPDATE pizzas SET active = 0 WHERE id=$id_to_delete";
+        $id_to_delete = mysqli_real_escape_string($conn, $_DELETE['id']);
+        $user_id = mysqli_real_escape_string($conn, $_DELETE['user_id']);
+        
+        $sql = "UPDATE pizzas SET active = 0, updated_by= $user_id WHERE id=$id_to_delete";
 
         if(mysqli_query($conn, $sql)){
             mysqli_close($conn);
